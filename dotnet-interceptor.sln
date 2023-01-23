@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GenericInterceptor", "interceptor\GenericInterceptor.csproj", "{C71D9A4F-1820-44FD-A920-57CF5990C08B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{01D81893-2D8A-467E-A485-E6D9DC1CA119}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ASP.NET Core", "examples\ASP.NET Core\ASP.NET Core.csproj", "{20474A64-330C-47F2-AC8D-DFA90BABC57F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C71D9A4F-1820-44FD-A920-57CF5990C08B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C71D9A4F-1820-44FD-A920-57CF5990C08B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C71D9A4F-1820-44FD-A920-57CF5990C08B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C71D9A4F-1820-44FD-A920-57CF5990C08B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20474A64-330C-47F2-AC8D-DFA90BABC57F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20474A64-330C-47F2-AC8D-DFA90BABC57F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20474A64-330C-47F2-AC8D-DFA90BABC57F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20474A64-330C-47F2-AC8D-DFA90BABC57F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{20474A64-330C-47F2-AC8D-DFA90BABC57F} = {01D81893-2D8A-467E-A485-E6D9DC1CA119}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ABBB3E4E-9F0E-47FE-AF88-B6A032C2AE7F}
+	EndGlobalSection
+EndGlobal
