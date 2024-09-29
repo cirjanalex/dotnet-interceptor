@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace GenericInterceptor
@@ -19,7 +20,7 @@ namespace GenericInterceptor
         public RecordingInterceptor() { }
 
         public void InjectDependencies(
-            IInterceptorContextProvider interceptorContextProvider, 
+            IInterceptorContextProvider interceptorContextProvider,
             InterceptorType interceptorType,
             IOptions<InterceptorConfiguration> options,
             ILogger<RecordingInterceptor> logger)
@@ -40,7 +41,42 @@ namespace GenericInterceptor
 
         protected override void OnInvoked(MethodInfo methodInfo, object[] args, object result)
         {
-            _logger.LogInformation($"Invoked {methodInfo.Name} on {_decorated.GetType().Name} with params [{string.Join(",", args)}], type {_interceptorType}, mode: {_configuration.Mode}");
+            if (result is Task task)
+            {
+                HandleAsyncInvocation(methodInfo, args, task);
+            }
+            else
+            {
+                LogInvocation(methodInfo, args, result);
+            }
+        }
+
+        private async void HandleAsyncInvocation(MethodInfo methodInfo, object[] args, Task task)
+        {
+            try
+            {
+                await task.ConfigureAwait(false);
+
+                if (task.GetType().IsGenericType)
+                {
+                    var taskResult = task.GetType().GetProperty("Result").GetValue(task);
+                    LogInvocation(methodInfo, args, taskResult);
+                }
+                else
+                {
+                    LogInvocation(methodInfo, args, null);
+                }
+            }
+            catch (Exception ex)
+            {
+                OnException(methodInfo, args, ex);
+            }
+        }
+
+        private void LogInvocation(MethodInfo methodInfo, object[] args, object result)
+        {
+            string serializedResult = JsonSerializer.Serialize(result);
+            _logger.LogInformation($"Invoked {methodInfo.Name} on {_decorated.GetType().Name} with params [{string.Join(",", args)}], result: {serializedResult}, type {_interceptorType}, mode: {_configuration.Mode}");
         }
 
         protected override void OnException(MethodInfo methodInfo, object[] args, Exception exception)
